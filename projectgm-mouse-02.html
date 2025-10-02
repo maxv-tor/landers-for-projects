@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Input Lag - ProjectGM Model X-1 Gaming Mouse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(255,0,0,0.1) 0%, transparent 100%);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #ff3333;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(255,51,51,0.3);
+        }
+
+        .subheadline {
+            font-size: 1.3em;
+            color: #cccccc;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #ff3333;
+            margin: 60px 0 30px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #ff6666;
+            margin: 40px 0 20px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #dddddd;
+            font-size: 1.1em;
+        }
+
+        .problem-section {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            border-left: 4px solid #ff3333;
+        }
+
+        .problem-section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            background: rgba(0,255,100,0.05);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            margin: 25px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .feature-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00ff66;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .feature-item strong {
+            color: #00ff66;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .spec-category {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 10px;
+            border-top: 3px solid #ff3333;
+        }
+
+        .spec-category h4 {
+            color: #ff3333;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .spec-category ul {
+            list-style: none;
+        }
+
+        .spec-category li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #cccccc;
+        }
+
+        .spec-category li:last-child {
+            border-bottom: none;
+        }
+
+        .testimonial {
+            background: rgba(255,255,255,0.03);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 3px solid #00ff66;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            text-align: right;
+            color: #00ff66;
+            font-style: normal;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #ff3333 0%, #cc0000 100%);
+            padding: 60px 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(255,51,51,0.3);
+        }
+
+        .price {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.6em;
+        }
+
+        .included-list {
+            text-align: left;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .included-list li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            font-size: 1em;
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff3333;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .cta-button {
+            background: #00ff66;
+            color: #000000;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 30px 0;
+            width: 100%;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: #00cc52;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,255,102,0.3);
+        }
+
+        .guarantee-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .warning-box {
+            background: rgba(255,165,0,0.1);
+            border: 2px solid #ff9900;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .warning-box p {
+            color: #ffaa00;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            padding: 0;
+        }
+
+        .numbered-list li {
+            counter-increment: item;
+            margin: 25px 0;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .numbered-list li:before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #ff3333;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .numbered-list li strong {
+            display: block;
+            color: #ff6666;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .subheadline {
+                font-size: 1.1em;
+            }
+
+            .problem-section {
+                padding: 25px;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+            }
+
+            .price {
+                font-size: 2em;
+            }
+
+            .guarantee-badges {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Losing Gunfights You Started? Your Mouse Has 3ms of Input Lag.</h1>
+            <p class="subheadline">Most "gaming mice" use smoothing and prediction algorithms that add milliseconds between your click and the server response. Here's how to fix it.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="problem-section">
+            <h2>THE PROBLEM YOU'RE EXPERIENCING:</h2>
+            <p>You see the enemy first. You aim precisely. You click.</p>
+            <p>They kill you anyway.</p>
+            <p>Your K/D ratio doesn't match your game sense. You're losing 50/50 duels you should win. Flick shots that look perfect on your screen somehow miss on the server.</p>
+            <p>You're not imagining it. It's not your internet. It's your mouse sensor.</p>
+        </section>
+
+        <section>
+            <h2>WHY THIS HAPPENS (And Why Your Current Mouse Lies):</h2>
+            <p>Most gaming mice—even expensive ones—use "smoothing" and "prediction" algorithms that manufacturers claim make tracking smoother and more accurate.</p>
+            <p>Here's the truth: those algorithms add 2-4 milliseconds of processing time between your physical movement and what the sensor reports to your PC.</p>
+            <p>In competitive FPS games running at 144+ FPS, 3 milliseconds is the difference between a kill and a death.</p>
+            <p>That "smoothing" that's supposed to help you? It's literally handicapping your reaction time.</p>
+        </section>
+
+        <section>
+            <h3>THREE WAYS TO TELL IF YOUR MOUSE IS SABOTAGING YOU:</h3>
+            <ol class="numbered-list">
+                <li>
+                    <strong>The Kovaak's Test</strong>
+                    If your tracking scores plateau and you can't improve despite practice, sensor lag is your ceiling.
+                </li>
+                <li>
+                    <strong>The Flick Shot Mystery</strong>
+                    Your flicks look perfect on your screen but consistently miss by a few pixels in game. That's prediction lag.
+                </li>
+                <li>
+                    <strong>The Inconsistent Performance Pattern</strong>
+                    Some days you're hitting everything. Other days (same warmup, same focus) you can't hit anything. That's smoothing algorithms adapting to your movement patterns inconsistently.
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>THE SOLUTION: TRUE 1:1 TRACKING WITHOUT ARTIFICIAL PROCESSING</h2>
+            <p>The ProjectGM Model X-1 uses a 32,000 DPI optical sensor with zero smoothing, zero prediction, zero artificial processing.</p>
+            <p>What you move is exactly what the sensor reports. No lag. No correction. No algorithms deciding what you "meant" to do.</p>
+            <p>Sub-millisecond response time from physical movement to cursor position.</p>
+            <p>This is how pro FPS players actually play.</p>
+        </section>
+
+        <section>
+            <h2>WHAT CHANGES WHEN YOU ELIMINATE INPUT LAG:</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <strong>Your flick shots land consistently</strong>
+                    <p>No more "perfect aim, somehow missed" deaths. Your crosshair placement finally matches your server-side accuracy.</p>
+                </div>
+                <div class="feature-item">
+                    <strong>50/50 duels become 70/30 in your favor</strong>
+                    <p>When both players see each other simultaneously, the player with lower input lag wins. Mathematics, not skill.</p>
+                </div>
+                <div class="feature-item">
+                    <strong>Your practice actually improves your stats</strong>
+                    <p>Without sensor lag masking your true performance, your Kovaak's improvements translate directly to in-game results.</p>
+                </div>
+                <div class="feature-item">
+                    <strong>Micro-adjustments respond instantly</strong>
+                    <p>Tracking moving targets becomes easier when your tiny corrections happen in real-time instead of 3ms later.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROJECTGM MODEL X-1 SPECIFICATIONS:</h2>
+            <div class="specs-grid">
+                <div class="spec-category">
+                    <h4>Sensor Performance:</h4>
+                    <ul>
+                        <li>32,000 DPI optical sensor (true 1:1 tracking)</li>
+                        <li>Sub-millisecond response time</li>
+                        <li>Zero smoothing or prediction algorithms</li>
+                        <li>1000Hz polling rate (1ms report rate)</li>
+                        <li>400 IPS tracking speed</li>
+                        <li>50G acceleration</li>
+                    </ul>
+                </div>
+                <div class="spec-category">
+                    <h4>Competitive Features:</h4>
+                    <ul>
+                        <li>8 fully programmable buttons</li>
+                        <li>Customizable weight system (63-89g)</li>
+                        <li>36-hour battery life with RGB enabled</li>
+                        <li>Ergonomic shape tested by pro FPS players</li>
+                        <li>Onboard memory for profiles</li>
+                    </ul>
+                </div>
+                <div class="spec-category">
+                    <h4>Build Quality:</h4>
+                    <ul>
+                        <li>Matte black finish with anti-slip coating</li>
+                        <li>Omron switches rated for 80M clicks</li>
+                        <li>Braided USB-C charging cable</li>
+                        <li>RGB ecosystem sync (Razer Chroma, Corsair iCUE, ASUS Aura)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROOF IT WORKS:</h2>
+            <div class="testimonial">
+                "I've used Logitech, Razer, and SteelSeries. The X-1's response time is noticeably faster—my Valorant headshot percentage went from 22% to 29% in ranked."
+                <div class="testimonial-author">--Alex M., Radiant Valorant Player</div>
+            </div>
+            <div class="testimonial">
+                "My Kovaak's tracking scores improved 12% in three weeks. Same practice routine, just a better sensor. The zero-smoothing difference is real."
+                <div class="testimonial-author">--Tyler B., Former CS:GO Semi-Pro</div>
+            </div>
+            <div class="testimonial">
+                "I thought my aim was the problem. Turns out it was my $140 mouse adding lag I didn't even know existed. Should've switched sooner."
+                <div class="testimonial-author">--Jordan P., Master Apex Legends</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>TRY IT RISK-FREE FOR 30 DAYS:</h2>
+            <h3>The Domination Guarantee:</h3>
+            <p>Use the Model X-1 in your ranked matches for 30 days.</p>
+            <p>If your performance doesn't improve—if you don't notice the difference in response time—if you're not landing shots you used to miss—return it free.</p>
+            <p>We cover shipping both ways. No questions asked.</p>
+            <p>Keep the free premium mousepad regardless.</p>
+            <p><strong>Why we're confident:</strong> Under 3% return rate. Once competitive gamers experience true 1:1 tracking, they don't go back to smoothing algorithms.</p>
+        </section>
+
+        <section class="cta-section">
+            <h2 style="color: white; margin-top: 0;">ORDER YOUR MODEL X-1 - LAUNCH PRICING ENDS OCT 26:</h2>
+            <div class="price">
+                <span class="old-price">$109.99</span><br>
+                $89.99
+            </div>
+            <p style="font-size: 1.3em; margin-bottom: 30px;"><strong>LAUNCH BUNDLE</strong></p>
+            
+            <div class="included-list">
+                <p><strong>Included:</strong></p>
+                <ul>
+                    <li>✓ ProjectGM Model X-1 Gaming Mouse</li>
+                    <li>✓ Premium Mousepad ($25 value)</li>
+                    <li>✓ Free Expedited Shipping</li>
+                    <li>✓ 2-Year Warranty</li>
+                    <li>✓ 30-Day Money-Back Guarantee</li>
+                </ul>
+            </div>
+
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Shipping Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="zip">ZIP Code</label>
+                    <input type="text" id="zip" name="zip" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment">Payment Information</label>
+                    <input type="text" id="payment" name="payment" placeholder="Card Number" required>
+                </div>
+                
+                <button type="submit" class="cta-button">Eliminate Input Lag - Order Now</button>
+            </form>
+
+            <div class="guarantee-badges">
+                <div class="badge">📦 Ships within 24 hours</div>
+                <div class="badge">🔒 Secure checkout</div>
+                <div class="badge">↩️ Free 30-day returns</div>
+            </div>
+        </section>
+
+        <div class="warning-box">
+            <p>P.S. Every match you play with sensor lag is practice with a handicap. Launch pricing of $89.99 ends October 26th. Order today, test it in ranked this weekend.</p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your order! This is a demo page. In production, this would process your payment securely.');
+        });
+
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
