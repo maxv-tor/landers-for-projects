@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectGM - Eliminate Input Lag | Win More Gunfights</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff2a6d;
+            --secondary: #05d9e8;
+            --accent: #d1f7ff;
+            --dark: #01012b;
+            --darker: #000222;
+            --light: #ffffff;
+            --success: #00ff7f;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            background: rgba(1, 1, 43, 0.95);
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+        
+        .logo i {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: radial-gradient(circle at top, rgba(5, 217, 232, 0.15), transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 42, 109, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero h2 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-weight: 500;
+        }
+        
+        .problem-box {
+            background: rgba(1, 1, 43, 0.7);
+            border: 2px solid var(--primary);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 0 30px rgba(255, 42, 109, 0.3);
+        }
+        
+        .problem-box h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .problem-content {
+            text-align: left;
+        }
+        
+        .problem-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        /* Why Section */
+        .why-section {
+            padding: 80px 0;
+            background: rgba(0, 2, 34, 0.7);
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--secondary);
+        }
+        
+        .section-title span {
+            color: var(--primary);
+        }
+        
+        .why-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .why-card {
+            background: rgba(1, 1, 43, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(5, 217, 232, 0.3);
+        }
+        
+        .why-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .why-card ul {
+            padding-left: 20px;
+        }
+        
+        .why-card li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .why-card li::before {
+            content: "✓";
+            color: var(--success);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: radial-gradient(circle at bottom, rgba(255, 42, 109, 0.1), transparent 70%);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: rgba(1, 1, 43, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--primary);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: """;
+            font-size: 4rem;
+            position: absolute;
+            top: -30px;
+            left: -15px;
+            color: rgba(255, 42, 109, 0.3);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .author-info h4 {
+            color: var(--secondary);
+        }
+        
+        .author-info p {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        /* Solution Section */
+        .solution {
+            padding: 80px 0;
+            background: rgba(0, 2, 34, 0.7);
+            text-align: center;
+        }
+        
+        .solution h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .solution p {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .mouse-display {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0;
+        }
+        
+        .mouse {
+            width: 300px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary), #ff0066);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            position: relative;
+            box-shadow: 0 0 40px rgba(255, 42, 109, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 20px rgba(255, 42, 109, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 42, 109, 0.8); }
+            100% { box-shadow: 0 0 20px rgba(255, 42, 109, 0.5); }
+        }
+        
+        .mouse::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        
+        .specs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+        }
+        
+        .spec-card {
+            background: rgba(1, 1, 43, 0.8);
+            border: 1px solid var(--secondary);
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px;
+            transition: transform 0.3s;
+        }
+        
+        .spec-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .spec-card i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .spec-card h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            padding: 80px 0;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(5, 217, 232, 0.15), transparent 70%);
+        }
+        
+        .cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .cta p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 30px 0;
+        }
+        
+        .price span {
+            text-decoration: line-through;
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-left: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), #ff0066);
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 42, 109, 0.4);
+            margin: 20px 0;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 42, 109, 0.6);
+        }
+        
+        .guarantee {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .guarantee-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+        }
+        
+        .guarantee-item i {
+            color: var(--success);
+            font-size: 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 40px 0 20px;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mouse {
+                width: 250px;
+                height: 125px;
+            }
+            
+            .price {
+                font-size: 2.2rem;
+            }
+            
+            .price span {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-mouse"></i>
+                    <span>PROJECTGM</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#problem">The Problem</a>
+                    <a href="#solution">The Solution</a>
+                    <a href="#specs">Specifications</a>
+                    <a href="#testimonials">Testimonials</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Losing Gunfights You Started?<br>Your Mouse Has 3ms of Input Lag.</h1>
+            <h2>Most "gaming mice" use smoothing and prediction algorithms that add milliseconds between your click and the server response. Here's how to fix it.</h2>
+            
+            <div class="problem-box">
+                <h3>THE PROBLEM YOU'RE EXPERIENCING</h3>
+                <div class="problem-content">
+                    <p>You see the enemy first. You aim precisely. You click.</p>
+                    <p>They kill you anyway.</p>
+                    <p>Your K/D ratio doesn't match your game sense. You're losing 50/50 duels you should win. Flick shots that look perfect on your screen somehow miss on the server.</p>
+                    <p>You're not imagining it. It's not your internet. It's your mouse sensor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Section -->
+    <section class="why-section" id="problem">
+        <div class="container">
+            <h2 class="section-title">WHY THIS <span>HAPPENS</span></h2>
+            <div class="why-content">
+                <div class="why-card">
+                    <h3>Manufacturers Lie About Smoothing</h3>
+                    <p>Most gaming mice—even expensive ones—use "smoothing" and "prediction" algorithms that manufacturers claim make tracking smoother and more accurate.</p>
+                    <p>Here's the truth: those algorithms add 2-4 milliseconds of processing time between your physical movement and what the sensor reports to your PC.</p>
+                </div>
+                <div class="why-card">
+                    <h3>3ms = The Difference Between Life and Death</h3>
+                    <p>In competitive FPS games running at 144+ FPS, 3 milliseconds is the difference between a kill and a death.</p>
+                    <p>That "smoothing" that's supposed to help you? It's literally handicapping your reaction time.</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 80px;">THREE WAYS TO TELL IF YOUR MOUSE IS SABOTAGING YOU</h2>
+            <div class="why-content">
+                <div class="why-card">
+                    <h3>1. The Kovaak's Test</h3>
+                    <p>If your tracking scores plateau and you can't improve despite practice, sensor lag is your ceiling.</p>
+                </div>
+                <div class="why-card">
+                    <h3>2. The Flick Shot Mystery</h3>
+                    <p>Your flicks look perfect on your screen but consistently miss by a few pixels in game. That's prediction lag.</p>
+                </div>
+                <div class="why-card">
+                    <h3>3. The Inconsistent Performance Pattern</h3>
+                    <p>Some days you're hitting everything. Other days (same warmup, same focus) you can't hit anything. That's smoothing algorithms adapting to your movement patterns inconsistently.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <h2>THE SOLUTION: TRUE 1:1 TRACKING WITHOUT ARTIFICIAL PROCESSING</h2>
+            <p>The ProjectGM Model X-1 uses a 32,000 DPI optical sensor with zero smoothing, zero prediction, zero artificial processing.</p>
+            
+            <div class="mouse-display">
+                <div class="mouse"></div>
+            </div>
+            
+            <p>What you move is exactly what the sensor reports. No lag. No correction. No algorithms deciding what you "meant" to do.</p>
+            <p>Sub-millisecond response time from physical movement to cursor position.</p>
+            <p>This is how pro FPS players actually play.</p>
+            
+            <h2 style="margin-top: 60px;">WHAT CHANGES WHEN YOU ELIMINATE INPUT LAG</h2>
+            <div class="why-content" style="margin-top: 40px;">
+                <div class="why-card">
+                    <h3>Your flick shots land consistently</h3>
+                    <p>No more "perfect aim, somehow missed" deaths. Your crosshair placement finally matches your server-side accuracy.</p>
+                </div>
+                <div class="why-card">
+                    <h3>50/50 duels become 70/30 in your favor</h3>
+                    <p>When both players see each other simultaneously, the player with lower input lag wins. Mathematics, not skill.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Your practice actually improves your stats</h3>
+                    <p>Without sensor lag masking your true performance, your Kovaak's improvements translate directly to in-game results.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Micro-adjustments respond instantly</h3>
+                    <p>Tracking moving targets becomes easier when your tiny corrections happen in real-time instead of 3ms later.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section class="testimonials" id="specs">
+        <div class="container">
+            <h2 class="section-title">PROJECTGM MODEL X-1 <span>SPECIFICATIONS</span></h2>
+            
+            <div class="specs">
+                <div class="spec-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h4>Sensor Performance</h4>
+                    <p>32,000 DPI optical sensor (true 1:1 tracking)</p>
+                </div>
+                <div class="spec-card">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Response Time</h4>
+                    <p>Sub-millisecond response time</p>
+                </div>
+                <div class="spec-card">
+                    <i class="fas fa-sliders-h"></i>
+                    <h4>Algorithms</h4>
+                    <p>Zero smoothing or prediction algorithms</p>
+                </div>
+                <div class="spec-card">
+                    <i class="fas fa-sync"></i>
+                    <h4>Polling Rate</h4>
+                    <p>1000Hz polling rate (1ms report rate)</p>
+                </div>
+                <div class="spec-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h4>Tracking Speed</h4>
+                    <p>400 IPS tracking speed</p>
+                </div>
+                <div class="spec-card">
+                    <i class="fas fa-rocket"></i>
+                    <h4>Acceleration</h4>
+                    <p>50G acceleration</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title" style="margin-top: 60px;">PROOF IT <span>WORKS</span></h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        I've used Logitech, Razer, and SteelSeries. The X-1's response time is noticeably faster—my Valorant headshot percentage went from 22% to 29% in ranked.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <h4>Alex M.</h4>
+                            <p>Radiant Valorant Player</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        My Kovaak's tracking scores improved 12% in three weeks. Same practice routine, just a better sensor. The zero-smoothing difference is real.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TB</div>
+                        <div class="author-info">
+                            <h4>Tyler B.</h4>
+                            <p>Former CS:GO Semi-Pro</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        I thought my aim was the problem. Turns out it was my $140 mouse adding lag I didn't even know existed. Should've switched sooner.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JP</div>
+                        <div class="author-info">
+                            <h4>Jordan P.</h4>
+                            <p>Master Apex Legends</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>TRY IT RISK-FREE FOR 30 DAYS</h2>
+            <p>The Domination Guarantee: Use the Model X-1 in your ranked matches for 30 days. If your performance doesn't improve—if you don't notice the difference in response time—if you're not landing shots you used to miss—return it free.</p>
+            
+            <div class="price">$89.99 <span>$109.99</span></div>
+            <p>LAUNCH PRICING ENDS OCT 26</p>
+            
+            <a href="#" class="btn">ELIMINATE INPUT LAG - ORDER NOW</a>
+            
+            <div class="guarantee">
+                <div class="guarantee-item">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Ships within 24 hours</span>
+                </div>
+                <div class="guarantee-item">
+                    <i class="fas fa-lock"></i>
+                    <span>Secure checkout</span>
+                </div>
+                <div class="guarantee-item">
+                    <i class="fas fa-undo"></i>
+                    <span>Free 30-day returns</span>
+                </div>
+            </div>
+            
+            <p><strong>P.S.</strong> Every match you play with sensor lag is practice with a handicap. Launch pricing of $89.99 ends October 26th. Order today, test it in ranked this weekend.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-mouse"></i> PROJECTGM
+                </div>
+                <div class="footer-links">
+                    <a href="#">Home</a>
+                    <a href="#problem">The Problem</a>
+                    <a href="#solution">The Solution</a>
+                    <a href="#specs">Specifications</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 ProjectGM. All rights reserved. This is a demo landing page for educational purposes.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for scroll effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe all cards
+            document.querySelectorAll('.why-card, .spec-card, .testimonial-card').forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Button hover effect enhancement
+            const btn = document.querySelector('.btn');
+            btn.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(to right, #ff0066, var(--primary))';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.background = 'linear-gradient(to right, var(--primary), #ff0066)';
+            });
+        });
+    </script>
+</body>
+</html>
