@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NXT Mortgage Concierge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        #chat-container {
+            max-width: 480px;
+            height: 100%;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 500px) {
+            #chat-container {
+                max-width: 100%;
+                box-shadow: none;
+            }
+        }
+
+        /* Loading indicator */
+        #loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #666;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="loading-indicator">
+            <div class="spinner"></div>
+            <span>Loading...</span>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '6982499b196dbef51822427d' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+                        url: "https://runtime-api.voiceflow.com"
+                    },
+                    assistant: {
+                        persistence: 'memory'
+                    },
+                    render: {
+                        mode: 'embedded',
+                        target: document.getElementById('chat-container')
+                    },
+                    autostart: false // Disable autostart
+                }).then(function() {
+                    // Hide loading indicator
+                    var loader = document.getElementById('loading-indicator');
+                    if (loader) loader.classList.add('hidden');
+                    
+                    // Small delay for full initialization
+                    setTimeout(function() {
+                        // Force open and start chat
+                        if (window.voiceflow && window.voiceflow.chat) {
+                            window.voiceflow.chat.open();
+                            window.voiceflow.chat.interact({
+                                type: 'launch'
+                            });
+                        }
+                    }, 500);
+                });
+            };
+            
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+            v.type = "text/javascript";
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
+</body>
+</html>
